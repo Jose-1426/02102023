@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades</title>
+</head>
+<body>
+    <h1>Atividades</h1>
+
+    <h2>Atividade 1: Exibir caracteres em uma tabela em uma única linha</h2>
+    <form id="form1">
+        <label for="input1">Digite uma string:</label>
+        <input type="text" id="input1">
+        <input type="submit" value="Enviar">
+    </form>
+    <table id="A1">
+        <tr>
+            <th>Caracteres</th>
+        </tr>
+    </table>
+
+    <h2>Atividade 2: Gerar e exibir uma string</h2>
+    <form id="form2">
+        <label for="charInput">Digite um caractere:</label>
+        <input type="text" id="charInput">
+        <label for="numInput">Digite um número inteiro:</label>
+        <input type="number" id="numInput">
+        <input type="submit" value="Gerar String">
+    </form>
+    <div id="output2"></div>
+
+    <h2>Atividade 3: Contar caracteres</h2>
+    <form id="form3">
+        <label for="input3">Digite uma string:</label>
+        <input type="text" id="input3">
+        <input type="submit" value="Contar Caracteres">
+    </form>
+    <table id="A3">
+        <tr>
+            <th>Tipo de Caractere</th>
+            <th>Quantidade</th>
+        </tr>
+    </table>
+    <h2>Atividade 4: Verificar se é palíndromo</h2>
+    <form id="form4">
+        <label for="input4">Digite uma string:</label>
+        <input type="text" id="input4">
+        <input type="submit" value="Verificar Palíndromo">
+    </form>
+    <div id="output4"></div>
+
+    <h2>Atividade 5: Formatar nome no estilo de catálogo telefônico</h2>
+    <form id="form5">
+        <label for="input5">Digite um nome:</label>
+        <input type="text" id="input5">
+        <input type="submit" value="Formatar Nome">
+    </form>
+    <div id="output5"></div>
+
+    <h2>Atividade 6: Formatar nome no estilo de referência bibliográfica</h2>
+    <form id="form6">
+        <label for="input6">Digite um nome:</label>
+        <input type="text" id="input6">
+        <input type="submit" value="Formatar Nome">
+    </form>
+    <div id="output6"></div>
+
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("form1").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input1 = document.getElementById("input1").value;
+            const tableA1 = document.getElementById("A1");
+            tableA1.innerHTML = ""; 
+            for (let i = 0; i < input1.length; i++) {
+                const row = tableA1.insertRow();
+                const cell = row.insertCell();
+                cell.innerText = input1[i];
+            }
+        });
+    
+        
+        document.getElementById("form2").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const charInput = document.getElementById("charInput").value;
+            const numInput = parseInt(document.getElementById("numInput").value);
+            const output2 = document.getElementById("output2");
+            let generatedString = "";
+            for (let i = 0; i < numInput; i++) {
+                generatedString += charInput;
+            }
+            output2.innerText = generatedString;
+        });
+    
+        
+        document.getElementById("form3").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input3 = document.getElementById("input3").value;
+            const tableA3 = document.getElementById("A3");
+            tableA3.innerHTML = ""; 
+            const charCount = {};
+            for (let i = 0; i < input3.length; i++) {
+                const char = input3[i];
+                if (charCount[char]) {
+                    charCount[char]++;
+                } else {
+                    charCount[char] = 1;
+                }
+            }
+            const charTypes = Object.keys(charCount);
+            for (let i = 0; i < charTypes.length; i++) {
+                const row = tableA3.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                cell1.innerText = charTypes[i];
+                cell2.innerText = charCount[charTypes[i]];
+            }
+        });
+    
+        
+        document.getElementById("form4").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input4 = document.getElementById("input4").value;
+            const output4 = document.getElementById("output4");
+            const cleanedInput = input4.replace(/ /g, "").toLowerCase();
+            const reversedInput = cleanedInput.split("").reverse().join("");
+            if (cleanedInput === reversedInput) {
+                output4.innerText = "É um palíndromo!";
+            } else {
+                output4.innerText = "Não é um palíndromo!";
+            }
+        });
+    
+        
+        document.getElementById("form5").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input5 = document.getElementById("input5").value;
+            const output5 = document.getElementById("output5");
+            const parts = input5.split(" ");
+            const lastName = parts.pop();
+            const formattedName = lastName + ", " + parts.join(" ");
+            output5.innerText = formattedName;
+        });
+    
+        
+        document.getElementById("form6").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input6 = document.getElementById("input6").value;
+            const output6 = document.getElementById("output6");
+            const parts = input6.split(" ");
+            const lastName = parts.pop().toUpperCase();
+            const initials = parts.map(part => part.charAt(0).toUpperCase()).join(". ");
+            const formattedName = lastName + ", " + initials;
+            output6.innerText = formattedName;
+        });
+        });
+    </script>
+</body>
+</html>
